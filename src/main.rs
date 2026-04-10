@@ -2,7 +2,6 @@ mod models;
 
 use std::{error::Error, net::SocketAddr};
 
-use axum::Router;
 use dotenv::dotenv;
 use weather_server::routes::weather::routes;
 

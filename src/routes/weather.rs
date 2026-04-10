@@ -1,9 +1,9 @@
-use axum::{Router, routing::get};
+use axum::Router;
 
-use crate::{handlers::weather::get_weather, services::open_weather_api::get_weather_from_api};
+use crate::handlers::weather::get_weather;
 
 pub fn routes() -> Router {
     Router::new()
-        .route("/weather", axum::routing::get(get_weather()))
-        .route("/api", axum::routing::get(get_weather_from_api))
+        .route("/", axum::routing::get("Hello World!"))
+        .route("/api/weather", axum::routing::get(get_weather))
 }

@@ -1,11 +1,8 @@
-use dotenv::dotenv;
-use std::env;
-
-use axum::Json;
+use std::{env, error::Error};
 
 use crate::models::weather::WeatherResponse;
 
-pub async fn get_weather_from_api() -> Json<WeatherResponse> {
+pub async fn get_weather_from_api() -> Result<WeatherResponse, Box<dyn Error>> {
     let api_key = env::var("API_KEY").unwrap();
     let city = "Maribor";
     let url = format!(
@@ -13,10 +10,7 @@ pub async fn get_weather_from_api() -> Json<WeatherResponse> {
         city, api_key
     );
 
-    println!("{}", url);
+    let response: WeatherResponse = reqwest::get(url).await?.json().await?;
 
-    let response: WeatherResponse = reqwest::get(url).await.unwrap().json().await.unwrap();
-    println!("response {:?}", response);
-
-    Json(response)
+    Ok(response)
 }

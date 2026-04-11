@@ -1,6 +1,7 @@
 use chrono::Utc;
 use serde::{Deserialize, Serialize};
 
+#[allow(dead_code)]
 #[derive(Serialize, Deserialize, Debug)]
 pub struct WeatherResponse {
     name: String,
@@ -8,6 +9,7 @@ pub struct WeatherResponse {
     main: MainStats,
 }
 
+#[allow(dead_code)]
 #[derive(Serialize, Deserialize, Debug)]
 pub struct MainStats {
     temp: f32,
@@ -24,6 +26,7 @@ pub struct Description {
     icon: String,
 }
 
+#[allow(dead_code)]
 #[derive(Serialize, Deserialize, Debug)]
 pub struct WeatherData {
     temperature: f32,
@@ -33,6 +36,7 @@ pub struct WeatherData {
     last_update_time: u64,
 }
 
+#[allow(dead_code)]
 impl WeatherData {
     pub fn from(response: &WeatherResponse) -> Self {
         let now = Utc::now().timestamp_millis();
@@ -43,7 +47,7 @@ impl WeatherData {
             city: response.name.clone(),
             description: response
                 .weather
-                .get(0)
+                .first()
                 .map(|weather| weather.description.clone())
                 .unwrap_or("No description".into()),
             last_update_time: now as u64,

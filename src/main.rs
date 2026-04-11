@@ -10,7 +10,7 @@ async fn main() {
     dotenv().ok();
 
     let app = routes();
-    let addr = SocketAddr::from(([192, 168, 8, 200], 5000));
+    let addr = SocketAddr::from(([127, 0, 0, 1], 5000));
     println!("Server listening on http://{}", addr);
 
     let listener = tokio::net::TcpListener::bind(addr)
